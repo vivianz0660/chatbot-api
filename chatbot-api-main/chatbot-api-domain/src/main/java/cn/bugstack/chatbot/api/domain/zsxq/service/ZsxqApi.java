@@ -22,12 +22,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-/**
- * @author 小傅哥，微信：fustack
- * @description
- * @github https://github.com/fuzhengwei
- * @Copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- */
 @Service
 public class ZsxqApi implements IZsxqApi {
 
@@ -45,7 +39,7 @@ public class ZsxqApi implements IZsxqApi {
         CloseableHttpResponse response = httpClient.execute(get);
         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
             String jsonStr = EntityUtils.toString(response.getEntity());
-            logger.info("拉取提问数据。groupId：{} jsonStr：{}", groupId, jsonStr);
+            logger.info("Pull data of question。groupId：{} jsonStr：{}", groupId, jsonStr);
             return JSON.parseObject(jsonStr, UnAnsweredQuestionsAggregates.class);
         } else {
             throw new RuntimeException("queryUnAnsweredQuestionsTopicId Err Code is " + response.getStatusLine().getStatusCode());
@@ -62,10 +56,10 @@ public class ZsxqApi implements IZsxqApi {
         post.addHeader("Content-Type", "application/json;charset=utf8");
         post.addHeader("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36");
 
-        /* 测试数据
+        /* Test data
           String paramJson = "{\n" +
                 "  \"req_data\": {\n" +
-                "    \"text\": \"自己去百度！\\n\",\n" +
+                "    \"text\": \"Go to google！\\n\",\n" +
                 "    \"image_ids\": [],\n" +
                 "    \"silenced\": false\n" +
                 "  }\n" +
@@ -81,7 +75,7 @@ public class ZsxqApi implements IZsxqApi {
         CloseableHttpResponse response = httpClient.execute(post);
         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
             String jsonStr = EntityUtils.toString(response.getEntity());
-            logger.info("回答问题结果。groupId：{} topicId：{} jsonStr：{}", groupId, topicId, jsonStr);
+            logger.info("Answer result。groupId：{} topicId：{} jsonStr：{}", groupId, topicId, jsonStr);
             AnswerRes answerRes = JSON.parseObject(jsonStr, AnswerRes.class);
             return answerRes.isSucceeded();
         } else {
