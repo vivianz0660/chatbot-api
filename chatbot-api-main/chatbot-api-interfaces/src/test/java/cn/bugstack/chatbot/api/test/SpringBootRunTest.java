@@ -17,12 +17,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author 小傅哥，微信：fustack
- * @description
- * @github https://github.com/fuzhengwei
- * @Copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- */
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringBootRunTest {
@@ -44,7 +39,7 @@ public class SpringBootRunTest {
     @Test
     public void test_zsxqApi() throws IOException {
         UnAnsweredQuestionsAggregates unAnsweredQuestionsAggregates = zsxqApi.queryUnAnsweredQuestionsTopicId(groupId, cookie);
-        logger.info("测试结果：{}", JSON.toJSONString(unAnsweredQuestionsAggregates));
+        logger.info("Test result：{}", JSON.toJSONString(unAnsweredQuestionsAggregates));
 
         List<Topics> topics = unAnsweredQuestionsAggregates.getResp_data().getTopics();
         for (Topics topic : topics) {
@@ -52,15 +47,15 @@ public class SpringBootRunTest {
             String text = topic.getQuestion().getText();
             logger.info("topicId：{} text：{}", topicId, text);
 
-            // 回答问题
+            // Answer questions
             zsxqApi.answer(groupId, cookie, topicId, openAI.doChatGPT(openAiKey, text), false);
         }
     }
 
     @Test
     public void test_openAi() throws IOException {
-        String response = openAI.doChatGPT(openAiKey, "帮我写一个java冒泡排序");
-        logger.info("测试结果：{}", response);
+        String response = openAI.doChatGPT(openAiKey, "help me write a bubble sort in java");
+        logger.info("Test result：{}", response);
     }
 
 }
