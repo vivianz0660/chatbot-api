@@ -13,12 +13,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author 小傅哥，微信：fustack
- * @description 任务体
- * @github https://github.com/fuzhengwei
- * @Copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- */
+
 public class ChatbotTask implements Runnable {
 
     private Logger logger = LoggerFactory.getLogger(ChatbotTask.class);
@@ -46,34 +41,34 @@ public class ChatbotTask implements Runnable {
     public void run() {
         try {
             if (new Random().nextBoolean()) {
-                logger.info("{} 随机打烊中...", groupName);
+                logger.info("{} Closed randomly...", groupName);
                 return;
             }
 
             GregorianCalendar calendar = new GregorianCalendar();
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             if (hour > 22 || hour < 7) {
-                logger.info("{} 打烊时间不工作，AI 下班了！", groupName);
+                logger.info("{} Closed！", groupName);
                 return;
             }
 
-            // 1. 检索问题
+            // 1. Inquiry question
             UnAnsweredQuestionsAggregates unAnsweredQuestionsAggregates = zsxqApi.queryUnAnsweredQuestionsTopicId(groupId, cookie);
-            logger.info("{} 检索结果：{}", groupName, JSON.toJSONString(unAnsweredQuestionsAggregates));
+            logger.info("{} inquiry result：{}", groupName, JSON.toJSONString(unAnsweredQuestionsAggregates));
             List<Topics> topics = unAnsweredQuestionsAggregates.getResp_data().getTopics();
             if (null == topics || topics.isEmpty()) {
-                logger.info("{} 本次检索未查询到待会答问题", groupName);
+                logger.info("{} There are no questions to be answered in this search", groupName);
                 return;
             }
 
-            // 2. AI 回答
+            // 2. AI answer
             Topics topic = topics.get(topics.size() - 1);
             String answer = openAI.doChatGPT(openAiKey, topic.getQuestion().getText().trim());
-            // 3. 问题回复
+            // 3. Reply question
             boolean status = zsxqApi.answer(groupId, cookie, topic.getTopic_id(), answer, silenced);
-            logger.info("{} 编号：{} 问题：{} 回答：{} 状态：{}", groupName, topic.getTopic_id(), topic.getQuestion().getText(), answer, status);
+            logger.info("{} ID：{} Q：{} A：{} S：{}", groupName, topic.getTopic_id(), topic.getQuestion().getText(), answer, status);
         } catch (Exception e) {
-            logger.error("{} 自动回答问题异常", groupName, e);
+            logger.error("{} The automatic answer is abnormal", groupName, e);
         }
     }
 
