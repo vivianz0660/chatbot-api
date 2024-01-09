@@ -20,12 +20,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author 小傅哥，微信：fustack
- * @description
- * @github https://github.com/fuzhengwei
- * @Copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- */
+
 @Service
 public class OpenAI implements IOpenAI {
 
@@ -35,7 +30,7 @@ public class OpenAI implements IOpenAI {
     public String doChatGPT(String openAiKey, String question) throws IOException {
 
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        // 代理地址；open.aiproxy.xyz、open2.aiproxy.xyz
+        // proxy add；open.aiproxy.xyz、open2.aiproxy.xyz
         HttpPost post = new HttpPost("https://api.openai.com/v1/completions");
         post.addHeader("Content-Type", "application/json");
         post.addHeader("Authorization", "Bearer " + openAiKey);
