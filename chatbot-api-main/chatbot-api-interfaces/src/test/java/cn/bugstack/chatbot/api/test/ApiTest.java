@@ -15,12 +15,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-/**
- * @author 小傅哥，微信：fustack
- * @description 单元测试
- * @github https://github.com/fuzhengwei
- * @Copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- */
+
 public class ApiTest {
 
     @Test
@@ -35,7 +30,7 @@ public class ApiTest {
 
         HttpGet get = new HttpGet("https://api.zsxq.com/v2/groups/48411118851818/topics?scope=unanswered_questions&count=20");
 
-        get.addHeader("cookie", "知识星球个人cookie信息");
+        get.addHeader("cookie", "Knowledge planet cookie");
         get.addHeader("Content-Type", "application/json;charset=utf8");
 
         CloseableHttpResponse response = httpClient.execute(get);
@@ -57,7 +52,7 @@ public class ApiTest {
 
         String paramJson = "{\n" +
                 "  \"req_data\": {\n" +
-                "    \"text\": \"自己去百度！\\n\",\n" +
+                "    \"text\": \"Go to google！\\n\",\n" +
                 "    \"image_ids\": [],\n" +
                 "    \"silenced\": false\n" +
                 "  }\n" +
@@ -81,9 +76,9 @@ public class ApiTest {
 
         HttpPost post = new HttpPost("https://api.openai.com/v1/completions");
         post.addHeader("Content-Type", "application/json");
-        post.addHeader("Authorization", "Bearer 自行申请 https://beta.openai.com/overview");
+        post.addHeader("Authorization", "Bearer application https://beta.openai.com/overview");
 
-        String paramJson = "{\"model\": \"text-davinci-003\", \"prompt\": \"帮我写一个java冒泡排序\", \"temperature\": 0, \"max_tokens\": 1024}";
+        String paramJson = "{\"model\": \"text-davinci-003\", \"prompt\": \"help me write a bubble sort in java\", \"temperature\": 0, \"max_tokens\": 1024}";
 
         StringEntity stringEntity = new StringEntity(paramJson, ContentType.create("text/json", "UTF-8"));
         post.setEntity(stringEntity);
