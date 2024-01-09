@@ -21,12 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author 小傅哥，微信：fustack
- * @description 任务注册服务，支持多组任务配置
- * @github https://github.com/fuzhengwei
- * @Copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- */
+
 @Configuration
 @EnableScheduling
 public class TaskRegistrarAutoConfig implements EnvironmentAware, SchedulingConfigurer {
@@ -34,7 +29,7 @@ public class TaskRegistrarAutoConfig implements EnvironmentAware, SchedulingConf
     private Logger logger = LoggerFactory.getLogger(TaskRegistrarAutoConfig.class);
 
     /**
-     * 任务配置组
+     * Task config
      */
     private Map<String, Map<String, Object>> taskGroupMap = new HashMap<>();
 
@@ -66,8 +61,8 @@ public class TaskRegistrarAutoConfig implements EnvironmentAware, SchedulingConf
             String cronExpressionBase64 = taskGroup.get("cronExpression").toString();
             String cronExpression = new String(Base64.getDecoder().decode(cronExpressionBase64), StandardCharsets.UTF_8);
             boolean silenced = Boolean.parseBoolean(taskGroup.get("silenced").toString());
-            logger.info("创建任务 groupName：{} groupId：{} cronExpression：{}", groupName, groupId, cronExpression);
-            // 添加任务
+            logger.info("create task groupName：{} groupId：{} cronExpression：{}", groupName, groupId, cronExpression);
+            // Add task
             taskRegistrar.addCronTask(new ChatbotTask(groupName, groupId, cookie, openAiKey, zsxqApi, openAI, silenced), cronExpression);
         }
     }
