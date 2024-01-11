@@ -1,1 +1,1 @@
-docker run -e PARAMS=" --chatbot-api.groupId=你的星球ID --chatbot-api.openAiKey=自行申请 --chatbot-api.cookie=登录cookie信息" -p 8090:8090 --name chatbot-api -d chatbot-api:1.0
+docker run -e PARAMS=" --chatbot-api.groupId=Your planet ID --chatbot-api.openAiKey=Apply --chatbot-api.cookie=Login cookie Infor" -p 8090:8090 --name chatbot-api -d chatbot-api:1.0
