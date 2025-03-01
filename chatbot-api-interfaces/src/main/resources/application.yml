@@ -1,0 +1,20 @@
+server:
+  port: 8090
+
+# Task config
+chatbot-api:
+  launchList: group01,group02 # config the task based on group
+  group01:
+    groupName: ChatGPT AI Q&A Assistant
+    groupId: 28885518425541 # Knowledge Planet ID
+    cookie:  #  Knowledge Planet cookie
+    openAiKey:  #  https://beta.openai.com/overview 
+    cronExpression: 0/30 * * * * ? # config of execution frequecy，ref：cron.qqe2.com
+    silenced: false
+  group02:
+    groupName: Coder
+    groupId: 28885518425541 # ID
+    cookie:  #  Knowledge Planet cookie
+    openAiKey:  #  https://beta.openai.com/overview 
+    cronExpression: 0/30 * * * * ? 
+    silenced: true
